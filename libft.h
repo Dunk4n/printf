@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 12:22:41 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/13 16:37:39 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/13 22:35:27 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,14 @@ t_list			*ft_lstmap(t_list *lst, void *(f)(void *));
 # define CONVERSIONS_BONUS "nfge"
 # define FLAGS "-0.*lh\'# +"
 # define NB_FLAGS 10
-# define FLAG_H 0
-# define FLAG_HH 1
-# define FLAG_L 2
-# define FLAG_LL 3
 
 int		ft_printf(const char *str, ...);
 size_t	ft_putnstr(const char *str, size_t n);
 int		ft_isflag(char c);
 int		ft_isconv(char c);
 size_t	ft_makeconv(const char *str, size_t size, va_list list);
+void	get_flags(int *flags, const char *str, size_t size, va_list list);
+size_t	conv_char(va_list list, int *flags);
+size_t	conv_str(va_list list, int *flags);
 
 #endif

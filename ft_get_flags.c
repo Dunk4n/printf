@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 15:55:32 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/13 17:17:21 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/13 18:06:21 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,6 @@ void		get_flags(int *flags, const char *str, size_t size, va_list list)
 		}
 		i++;
 	}
+	if (flags[0])
+		flags[1] = 0;
 }

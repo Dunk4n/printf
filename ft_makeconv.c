@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:52:12 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/13 16:51:53 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/13 22:52:45 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ size_t		ft_makeconv(const char *str, size_t size, va_list list)
 {
 	size_t	i;
 	size_t	res;
-	size_t	(*f[9])(va_list, char, int*) = {};
+	size_t	(*f[9])(va_list, int*) = {conv_char, conv_str};
 	int		flags[NB_FLAGS + 1];
 
 	i = 0;
 	while (i <= NB_FLAGS)
 		flags[i++] = 0;
+	flags[2] = -1;
 	get_flags(flags, str + 1, size - 2, list);
 	i = 0;
 	res = 0;
@@ -31,7 +32,7 @@ size_t		ft_makeconv(const char *str, size_t size, va_list list)
 	{
 		if (CONVERSIONS[i] == str[size - 1])
 		{
-			//res = (*f)(list, str[size - 1], flags);
+			res = (f[i])(list, flags);
 			break ;
 		}
 		i++;

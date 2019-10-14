@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 12:29:40 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/13 17:16:31 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/13 20:23:13 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int				ft_printf(const char *str, ...)
 		nb_print += ft_putnstr(str + i, to_print);
 		i += to_print;
 		to_print = pass_flags(str + i, &flag);
-		//if (flag)
-		//	nb_print += ft_makeconv(str + i, to_print, list);
+		if (flag)
+			nb_print += ft_makeconv(str + i, to_print, list);
 		i += to_print;
 	}
 	va_end(list);
@@ -62,13 +62,13 @@ int				ft_printf(const char *str, ...)
 #include <stdio.h>
 int		main(int ac, char **av)
 {
-	if (ac != 2)
+	if (ac < 2)
 	{
 		printf("ARG!!!\n");
 		return (0);
 	}
-	printf("[%ld]\n\n", ft_printf(av[1], 0));
-	printf("[%ld]\n", printf(av[1], 0));
+	printf("[%d]\n\n", ft_printf(av[1], av[2]));
+	printf("[%d]\n", printf(av[1], av[2]));
 	//printf("%.*d", 2147483648, 5);
 	return (0);
 }
