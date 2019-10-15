@@ -40,7 +40,7 @@ size_t				conv_char(va_list list, int *flags)
 	if (flags[0])
 		write(1, &c, 1);
 	i = 0;
-	while (flags[10] && i < flags[10] - 1)
+	while (flags[10] && (int)i < flags[10] - 1)
 	{
 		write(1, &padding, 1);
 		i++;

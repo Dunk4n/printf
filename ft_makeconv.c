@@ -21,12 +21,13 @@ static size_t	conv_percent(va_list list, int *flags)
 	char			padding;
 	size_t			i;
 
+	(void)list;
 	c = '%';
 	padding = (!flags[0] && flags[1]) ? '0' : ' ';
 	if (flags[0])
 		write(1, &c, 1);
 	i = 0;
-	while (flags[10] && i < flags[10] - 1)
+	while (flags[10] && (int)i < flags[10] - 1)
 	{
 		write(1, &padding, 1);
 		i++;

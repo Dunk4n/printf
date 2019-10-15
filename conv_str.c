@@ -16,25 +16,29 @@
 #include <wchar.h>
 #include "libft.h"
 
-static char	*get_str(va_list list, int *flags)
+static char		*get_str(va_list list, int *flags)
 {
-	/*
-	   if (flags[4] == 1)
-	   return ((char*)(wchar_t)va_arg(list, char*));
-	   if (flags[4] == 2)
-	   return ((char*)(long long)va_arg(list, char*));
-	   if (flags[5] == 1)
-	   return ((char*)(short)va_arg(list, char*));
-	   if (flags[5] == 2)
-	   return ((char*)(int)va_arg(list, char*));
-	   */
+	if (flags[4] == 1)
+		return ((char*)va_arg(list, wchar_t*));
+	if (flags[4] == 2)
+		return (va_arg(list, char*));
+	if (flags[5] == 1)
+		return (va_arg(list, char*));
+	if (flags[5] == 2)
+		return (va_arg(list, char*));
 	return (va_arg(list, char*));
 }
 
-size_t		conv_str(va_list list, int *flags)
+static int		get_len(int *flags, size_t len)
+{
+	if (flags[2] < 0)
+		return ((int)len);
+	return ((len < (size_t)flags[2]) ? (int)len : flags[2]);
+}
+
+size_t			conv_str(va_list list, int *flags)
 {
 	char	*s;
-	char	padding;
 	size_t	i;
 	size_t	len;
 
@@ -44,17 +48,16 @@ size_t		conv_str(va_list list, int *flags)
 	len = 0;
 	while (s[len])
 		len++;
-	flags[2] = (len < flags[2]) ? len : flags[2];
-	padding = (!flags[0] && flags[1]) ? '0' : ' ';
+	flags[2] = get_len(flags, len);
 	if (flags[0])
 		write(1, s, flags[2]);
 	i = 0;
-	while ((int)(flags[10] - flags[2]) > 0 && i < (int)(flags[10] - flags[2]))
+	while (flags[10] - flags[2] > 0 && (int)i < (int)(flags[10] - flags[2]))
 	{
-		write(1, &padding, 1);
+		write(1, " ", 1);
 		i++;
 	}
 	if (!flags[0])
-		write(1, s, (len < flags[2]) ? len : flags[2]);
-	return (i + ((len < flags[2]) ? len : flags[2]));
+		write(1, s, ((int)len < flags[2]) ? (int)len : flags[2]);
+	return (i + (((int)len < flags[2]) ? (int)len : flags[2]));
 }

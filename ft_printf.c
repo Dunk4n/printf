@@ -67,8 +67,8 @@ int		main(int ac, char **av)
 		printf("ARG!!!\n");
 		return (0);
 	}
-	printf("[%d]\n\n", ft_printf(av[1], atoi(av[2])));
-	printf("[%d]\n", printf(av[1], atoi(av[2])));
+	//printf("[%d]\n\n", ft_printf(av[1], av[2]));
+	printf("[%d]\n", printf(av[1], atof(av[2])));
 	//printf("%.*d", 2147483648, 5);
 	return (0);
 }

@@ -17,8 +17,6 @@
 
 static unsigned long long	get_nb(va_list list, int *flags)
 {
-	unsigned char c;
-
 	if (flags[4] == 1)
 		return (va_arg(list, unsigned long));
 	if (flags[4] == 2)
@@ -66,7 +64,7 @@ static size_t				get_len(unsigned long long nb, int *flags)
 	while (nb /= 16)
 		len++;
 	if (flags[2] != -1)
-		return ((len < flags[2]) ? flags[2] : len);
+		return ((len < (size_t)flags[2]) ? (size_t)flags[2] : len);
 	return (len);
 }
 

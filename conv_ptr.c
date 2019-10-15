@@ -82,7 +82,7 @@ size_t			conv_ptr(va_list list, int *flags)
 	i = size_ptr((long)ptr);
 	if (flags[0])
 		i += display_ptr((long)ptr, flags[2] + 2);
-	while (!flags[1] && i < flags[10])
+	while (!flags[1] && (int)i < flags[10])
 	{
 		write(1, " ", 1);
 		i++;
