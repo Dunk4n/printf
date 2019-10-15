@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 12:22:41 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/13 22:35:27 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/14 19:41:57 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(f)(void *));
 
+# define HEX "0123456789abcdef"
+# define UHEX "0123456789ABCDEF"
 # define CONVERSIONS "cspdiuxX%"
 # define CONVERSIONS_BONUS "nfge"
 # define FLAGS "-0.*lh\'# +"
@@ -80,5 +82,10 @@ size_t	ft_makeconv(const char *str, size_t size, va_list list);
 void	get_flags(int *flags, const char *str, size_t size, va_list list);
 size_t	conv_char(va_list list, int *flags);
 size_t	conv_str(va_list list, int *flags);
+size_t	conv_ptr(va_list list, int *flags);
+size_t	conv_int(va_list list, int *flags);
+size_t	conv_uint(va_list list, int *flags);
+size_t	conv_hex(va_list list, int *flags);
+size_t	conv_uhex(va_list list, int *flags);
 
 #endif

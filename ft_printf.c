@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 12:29:40 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/13 20:23:13 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/14 12:30:10 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int		main(int ac, char **av)
 		printf("ARG!!!\n");
 		return (0);
 	}
-	printf("[%d]\n\n", ft_printf(av[1], av[2]));
-	printf("[%d]\n", printf(av[1], av[2]));
+	printf("[%d]\n\n", ft_printf(av[1], atoi(av[2])));
+	printf("[%d]\n", printf(av[1], atoi(av[2])));
 	//printf("%.*d", 2147483648, 5);
 	return (0);
 }

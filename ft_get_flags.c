@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 15:55:32 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/13 18:06:21 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/14 19:34:09 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	set_precast(int *flags, const char *str, size_t size)
 		{
 			end = (str[i] == 'l') ? 'l' : 'h';
 			(str[i] == 'l') ?
-(flags[4] = (flags[4] + 1) % 2) : (flags[5] = (flags[5] + 1) % 2);
+(flags[4] = (flags[4]) % 2 + 1) : (flags[5] = (flags[5]) % 2 + 1);
 		}
 		i++;
 	}

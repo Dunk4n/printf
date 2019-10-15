@@ -6,19 +6,42 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:52:12 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/13 22:52:45 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/14 19:42:14 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdarg.h>
 #include "libft.h"
 
-size_t		ft_makeconv(const char *str, size_t size, va_list list)
+static size_t	conv_percent(va_list list, int *flags)
+{
+	long long		c;
+	char			padding;
+	size_t			i;
+
+	c = '%';
+	padding = (!flags[0] && flags[1]) ? '0' : ' ';
+	if (flags[0])
+		write(1, &c, 1);
+	i = 0;
+	while (flags[10] && i < flags[10] - 1)
+	{
+		write(1, &padding, 1);
+		i++;
+	}
+	if (!flags[0])
+		write(1, &c, 1);
+	return (i + 1);
+}
+
+size_t			ft_makeconv(const char *str, size_t size, va_list list)
 {
 	size_t	i;
 	size_t	res;
-	size_t	(*f[9])(va_list, int*) = {conv_char, conv_str};
+	size_t	(*f[9])(va_list, int*) = {conv_char, conv_str, conv_ptr, conv_int,
+conv_int, conv_uint, conv_hex, conv_uhex, conv_percent};
 	int		flags[NB_FLAGS + 1];
 
 	i = 0;

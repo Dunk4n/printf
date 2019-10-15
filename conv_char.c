@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 17:32:16 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/13 20:09:40 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/14 18:45:16 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@
 #include <wchar.h>
 #include "libft.h"
 
-static unsigned char	get_char(va_list list, int *flags)
+static long long	get_char(va_list list, int *flags)
 {
 	if (flags[4] == 1)
-		return ((wint_t)va_arg(list, wint_t));//may crash when it is over 255
+		return ((wint_t)va_arg(list, wint_t));
 	if (flags[4] == 2)
-		return (va_arg(list, long long));
+		return (va_arg(list, unsigned long long));
 	if (flags[5] == 1)
-		return ((short)va_arg(list, int));
+		return ((unsigned short)va_arg(list, int));
 	if (flags[5] == 2)
-		return (va_arg(list, int));
-	return (va_arg(list, int));
+		return ((unsigned char)va_arg(list, int));
+	return ((unsigned char)va_arg(list, int));
 }
 
-size_t					conv_char(va_list list, int *flags)
+size_t				conv_char(va_list list, int *flags)
 {
-	unsigned char	c;
+	long long		c;
 	char			padding;
 	size_t			i;
 
