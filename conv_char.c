@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 17:32:16 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/14 18:45:16 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/19 16:11:04 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <wchar.h>
-#include "libft.h"
+#include "libftprintf.h"
 
 static long long	get_char(va_list list, int *flags)
 {
+	wint_t	c;
+
 	if (flags[4] == 1)
-		return ((wint_t)va_arg(list, wint_t));
+	{
+		c = (wint_t)va_arg(list, wint_t);
+		return (c);
+	}
 	if (flags[4] == 2)
 		return (va_arg(list, unsigned long long));
 	if (flags[5] == 1)
@@ -29,13 +34,15 @@ static long long	get_char(va_list list, int *flags)
 	return ((unsigned char)va_arg(list, int));
 }
 
-size_t				conv_char(va_list list, int *flags)
+int					conv_char(va_list list, int *flags)
 {
 	long long		c;
 	char			padding;
 	size_t			i;
 
 	c = get_char(list, flags);
+	if (flags[4] == 1 && (c < 0 || c > 255))
+		return (-1);
 	padding = (!flags[0] && flags[1]) ? '0' : ' ';
 	if (flags[0])
 		write(1, &c, 1);

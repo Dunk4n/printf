@@ -6,12 +6,12 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 13:02:49 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/12 16:55:59 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/19 16:12:27 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
+#include "libftprintf.h"
 
 int		ft_isflag(char c)
 {

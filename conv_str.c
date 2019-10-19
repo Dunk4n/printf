@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 20:09:48 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/13 22:56:46 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/19 16:12:15 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <wchar.h>
-#include "libft.h"
+#include "libftprintf.h"
 
 static char		*get_str(va_list list, int *flags)
 {
@@ -36,7 +36,7 @@ static int		get_len(int *flags, size_t len)
 	return ((len < (size_t)flags[2]) ? (int)len : flags[2]);
 }
 
-size_t			conv_str(va_list list, int *flags)
+int				conv_str(va_list list, int *flags)
 {
 	char	*s;
 	size_t	i;

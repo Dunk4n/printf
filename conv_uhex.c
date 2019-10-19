@@ -6,14 +6,14 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 19:41:03 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/14 19:52:23 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/19 16:12:16 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdarg.h>
 #include <unistd.h>
-#include "libft.h"
+#include "libftprintf.h"
 
 static unsigned long long	get_nb(va_list list, int *flags)
 {
@@ -68,7 +68,7 @@ static size_t				get_len(unsigned long long nb, int *flags)
 	return (len);
 }
 
-size_t			conv_uhex(va_list list, int *flags)
+int							conv_uhex(va_list list, int *flags)
 {
 	unsigned long long	nb;
 	size_t				i;

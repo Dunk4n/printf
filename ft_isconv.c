@@ -6,12 +6,12 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 14:03:10 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/12 16:34:28 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/19 16:12:26 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
+#include "libftprintf.h"
 
 int		ft_isconv(char c)
 {

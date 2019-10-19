@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:21:33 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/14 19:12:25 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/19 17:14:58 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <wchar.h>
-#include "libft.h"
+#include "libftprintf.h"
 
 static long long	get_nb(va_list list, int *flags)
 {
@@ -67,18 +67,22 @@ static size_t	put_nb(long long nb, int *flags)
 static size_t	get_len(long long nb, int *flags)
 {
 	int	len;
+	int add;
 
 	if (flags[0])
 		return (0);
 	len = 1;
+	add = 0;
+	if (nb < 0 || flags[8] || flags[9])
+		add++;
 	while (nb /= 10)
 		len++;
 	if (flags[2] != -1)
-		return ((len < flags[2]) ? flags[2] : len);
-	return (len);
+		return ((len < flags[2]) ? flags[2] + add : len + add);
+	return (len + add);
 }
 
-size_t			conv_int(va_list list, int *flags)
+int				conv_int(va_list list, int *flags)
 {
 	long long	nb;
 	size_t		i;

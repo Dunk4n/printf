@@ -6,12 +6,12 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 15:55:32 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/14 19:34:09 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/19 16:12:20 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
+#include "libftprintf.h"
 
 static int	ft_atoi_cust(const char *str, size_t *indice, va_list list)
 {

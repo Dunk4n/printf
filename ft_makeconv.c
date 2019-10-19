@@ -6,16 +6,16 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:52:12 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/14 19:42:14 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/19 16:12:29 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
-#include "libft.h"
+#include "libftprintf.h"
 
-static size_t	conv_percent(va_list list, int *flags)
+static int		conv_percent(va_list list, int *flags)
 {
 	long long		c;
 	char			padding;
@@ -37,11 +37,11 @@ static size_t	conv_percent(va_list list, int *flags)
 	return (i + 1);
 }
 
-size_t			ft_makeconv(const char *str, size_t size, va_list list)
+int				ft_makeconv(const char *str, int *size, va_list list)
 {
 	size_t	i;
-	size_t	res;
-	size_t	(*f[9])(va_list, int*) = {conv_char, conv_str, conv_ptr, conv_int,
+	int		res;
+	int		(*f[9])(va_list, int*) = {conv_char, conv_str, conv_ptr, conv_int,
 conv_int, conv_uint, conv_hex, conv_uhex, conv_percent};
 	int		flags[NB_FLAGS + 1];
 
@@ -49,18 +49,20 @@ conv_int, conv_uint, conv_hex, conv_uhex, conv_percent};
 	while (i <= NB_FLAGS)
 		flags[i++] = 0;
 	flags[2] = -1;
-	get_flags(flags, str + 1, size - 2, list);
+	get_flags(flags, str + 1, *size - 2, list);
 	i = 0;
 	res = 0;
 	while (CONVERSIONS[i])
 	{
-		if (CONVERSIONS[i] == str[size - 1])
+		if (CONVERSIONS[i] == str[*size - 1])
 		{
 			res = (f[i])(list, flags);
 			break ;
 		}
 		i++;
 	}
+	if (res == -1)
+		*size = -1;
 	return (res);
 }
 

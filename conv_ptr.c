@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 11:08:54 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/14 14:23:13 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/19 16:12:14 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <wchar.h>
-#include "libft.h"
+#include "libftprintf.h"
 
 static void		display_hex(long ptr, int size)
 {
@@ -71,7 +71,7 @@ static size_t	size_ptr(long ptr)
 	return (i + 2);
 }
 
-size_t			conv_ptr(va_list list, int *flags)
+int				conv_ptr(va_list list, int *flags)
 {
 	void	*ptr;
 	size_t	i;
