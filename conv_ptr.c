@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 11:08:54 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/19 16:12:14 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/20 18:18:10 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,21 @@ static size_t	display_ptr(long ptr, int min)
 	return (i);
 }
 
-static size_t	size_ptr(long ptr)
+static size_t	size_ptr(long ptr, int *flags)
 {
 	size_t	i;
 
 	i = 0;
+	if (!ptr && !flags[2])
+	{
+		write(1, "0x", 2);
+		return (2);
+	}
 	if (!ptr)
 		return (3);
 	while (ptr /= 16)
 		i++;
-	return (i + 2);
+	return (i + 3);
 }
 
 int				conv_ptr(va_list list, int *flags)
@@ -79,15 +84,15 @@ int				conv_ptr(va_list list, int *flags)
 	if (flags[2] >= 0 || flags[0])
 		flags[1] = 0;
 	ptr = va_arg(list, void*);
-	i = size_ptr((long)ptr);
-	if (flags[0])
+	i = size_ptr((long)ptr, flags);
+	if (flags[0] && (flags[2] || ptr))
 		i += display_ptr((long)ptr, flags[2] + 2);
 	while (!flags[1] && (int)i < flags[10])
 	{
 		write(1, " ", 1);
 		i++;
 	}
-	if (!flags[0])
+	if (!flags[0] && (flags[2] || ptr))
 	{
 		if (flags[1])
 			i += display_ptr((long)ptr, flags[10]);

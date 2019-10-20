@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 19:41:03 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/19 16:12:16 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/20 19:09:06 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,30 @@ static size_t				put_long_nbr(unsigned long long nb, int len)
 
 static size_t				put_nb(unsigned long long nb, int *flags)
 {
+	int	tmp;
+
+	tmp = ((flags[7] && nb) ? 2 : 0);
+	if (flags[7] && nb)
+		write(1, "0X", 2);
 	if (flags[1])
-		return (put_long_nbr(nb, flags[10]));
+		return (put_long_nbr(nb, flags[10] - tmp) + tmp);
 	else
-		return (put_long_nbr(nb, flags[2]));
+		return (put_long_nbr(nb, flags[2]) + tmp);
 }
 
 static size_t				get_len(unsigned long long nb, int *flags)
 {
-	size_t	len;
+	int	len;
 
-	if (flags[0])
+	if (flags[0] || (!nb && !flags[2]))
 		return (0);
 	len = 1;
+	if (flags[7] && nb)
+		len += 2;
 	while (nb /= 16)
 		len++;
 	if (flags[2] != -1)
-		return ((len < (size_t)flags[2]) ? (size_t)flags[2] : len);
+		return ((len < flags[2]) ? flags[2] : len);
 	return (len);
 }
 
@@ -79,14 +86,14 @@ int							conv_uhex(va_list list, int *flags)
 	nb = get_nb(list, flags);
 	i = 0;
 	len = get_len(nb, flags);
-	if (flags[0])
+	if (flags[0] && (nb || flags[2]))
 		i += put_nb(nb, flags);
 	while (!flags[1] && (int)i < (int)(flags[10] - len))
 	{
 		write(1, " ", 1);
 		i++;
 	}
-	if (!flags[0])
+	if (!flags[0] && (nb || flags[2]))
 		i += put_nb(nb, flags);
 	return (i);
 }

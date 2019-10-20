@@ -6,22 +6,29 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 15:55:32 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/19 16:12:20 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/20 18:29:32 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libftprintf.h"
 
-static int	ft_atoi_cust(const char *str, size_t *indice, va_list list)
+static int	ft_atoi_cust(const char *str, size_t *indice, va_list list,
+int *flags)
 {
 	size_t	i;
 	long	nb;
 
+	nb = 0;
 	if (*str == '*')
 	{
 		(*indice)++;
-		return (va_arg(list, int));
+		if ((nb = va_arg(list, int)) < 0 && flags[2] != -2)
+		{
+			flags[0] += 1;
+			nb *= -1;
+		}
+		return (nb);
 	}
 	i = 0;
 	nb = 0;
@@ -66,14 +73,15 @@ void		get_flags(int *flags, const char *str, size_t size, va_list list)
 	{
 		j = 0;
 		if ((str[i] > '0' && str[i] <= '9') || str[i] == '*')
-			flags[NB_FLAGS] = ft_atoi_cust(str + i, &i, list);
+			flags[NB_FLAGS] = ft_atoi_cust(str + i, &i, list, flags);
 		while (FLAGS[j])
 		{
 			if (FLAGS[j] == str[i] && str[i] != 'l' && str[i] != 'h')
 			{
 				flags[j]++;
+				(str[i] == '.') ? flags[j] = -2 : 0;
 				if (str[i] == '.')
-					flags[j] = ft_atoi_cust(str + i + 1, &i, list);
+					flags[j] = ft_atoi_cust(str + i + 1, &i, list, flags);
 			}
 			j++;
 		}

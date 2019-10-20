@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 19:38:02 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/19 16:12:18 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/20 19:01:46 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static size_t				get_len(unsigned long long nb, int *flags)
 {
 	size_t	len;
 
-	if (flags[0])
+	if (flags[0] || (!flags[2] && !nb))
 		return (0);
 	len = 1;
 	while (nb /= 10)
@@ -82,14 +82,14 @@ int							conv_uint(va_list list, int *flags)
 	nb = get_nb(list, flags);
 	i = 0;
 	len = get_len(nb, flags);
-	if (flags[0])
+	if (flags[0] && (flags[2] || nb))
 		i += put_nb(nb, flags);
 	while (!flags[1] && (int)i < (int)(flags[10] - len))
 	{
 		write(1, " ", 1);
 		i++;
 	}
-	if (!flags[0])
+	if (!flags[0] && (flags[2] || nb))
 		i += put_nb(nb, flags);
 	return (i);
 }
