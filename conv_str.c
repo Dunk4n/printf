@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 20:09:48 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/19 16:12:15 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/21 14:45:36 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int				conv_str(va_list list, int *flags)
 	i = 0;
 	while (flags[10] - flags[2] > 0 && (int)i < (int)(flags[10] - flags[2]))
 	{
-		write(1, " ", 1);
+		write(1, (flags[1] && !flags[0]) ? "0" : " ", 1);
 		i++;
 	}
 	if (!flags[0])

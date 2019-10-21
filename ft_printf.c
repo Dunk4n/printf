@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 12:29:40 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/19 17:00:28 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/21 13:19:05 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				ft_printf(const char *str, ...)
 		i += to_print;
 		to_print = pass_flags(str + i, &flag);
 		if (flag)
-			nb_print += ft_makeconv(str + i, &to_print, list);
+			nb_print += ft_makeconv(str + i, &to_print, list, nb_print);
 		i += to_print;
 	}
 	va_end(list);

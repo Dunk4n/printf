@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isconv.c                                        :+:      :+:    :+:   */
+/*   conv_nbr_print_char.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/12 14:03:10 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/21 13:09:14 by niduches         ###   ########.fr       */
+/*   Created: 2019/10/21 13:11:16 by niduches          #+#    #+#             */
+/*   Updated: 2019/10/21 13:35:50 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdarg.h>
+#include <unistd.h>
+#include <wchar.h>
 #include "libftprintf.h"
 
-int		ft_isconv(char c)
+int		conv_nb_print_char(va_list list, int *flags)
 {
-	size_t	i;
+	void	*ptr;
 
-	i = 0;
-	while (CONVERSIONS[i])
-	{
-		if (c == CONVERSIONS[i])
-			return (1);
-		i++;
-	}
+	ptr = va_arg(list, int*);
+	if (flags[4] == 1)
+		*((long*)ptr) = flags[0];
+	else if (flags[4] == 2)
+		*((long long*)ptr) = flags[0];
+	else if (flags[5] == 1)
+		*((short*)ptr) = flags[0];
+	else if (flags[5] == 2)
+		*((char*)ptr) = flags[0];
+	else
+		*((int*)ptr) = flags[0];
 	return (0);
 }

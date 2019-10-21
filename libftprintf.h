@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 16:12:52 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/19 16:13:00 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/21 15:17:47 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ t_list			*ft_lstmap(t_list *lst, void *(f)(void *));
 
 # define HEX "0123456789abcdef"
 # define UHEX "0123456789ABCDEF"
-# define CONVERSIONS "cspdiuxX%"
-# define CONVERSIONS_BONUS "nfge"
+# define CONVERSIONS "cspdiuxX%nfge"
 # define FLAGS "-0.*lh\'# +"
 # define NB_FLAGS 10
 
@@ -78,7 +77,8 @@ int				ft_printf(const char *str, ...);
 size_t			ft_putnstr(const char *str, size_t n);
 int				ft_isflag(char c);
 int				ft_isconv(char c);
-int				ft_makeconv(const char *str, int *size, va_list list);
+int				ft_makeconv(const char *str, int *size, va_list list,
+size_t nb_print);
 void			get_flags(int *flags, const char *str, size_t size,
 va_list list);
 int				conv_char(va_list list, int *flags);
@@ -88,5 +88,7 @@ int				conv_int(va_list list, int *flags);
 int				conv_uint(va_list list, int *flags);
 int				conv_hex(va_list list, int *flags);
 int				conv_uhex(va_list list, int *flags);
+int				conv_nb_print_char(va_list list, int *flags);
+int				conv_float(va_list list, int *flags);
 
 #endif
