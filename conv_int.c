@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:21:33 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/20 18:56:43 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/22 12:59:43 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,7 @@ static long long	get_nb(va_list list, int *flags)
 	return (va_arg(list, int));
 }
 
-static size_t	put_long_nbr(long long nb, int len)
-{
-	size_t	n;
-	char	c;
-
-	n = 0;
-	if (nb > 9 || nb < -9 || len - 1 > 0)
-	{
-		n += put_long_nbr((nb < 0) ? (-(nb / 10)) : (nb / 10), len - 1);
-		c = ((nb < 0) ? (-(nb % 10)) : (nb % 10)) + '0';
-		n += write(1, &c, 1);
-		return (n);
-	}
-	c = ((nb < 0) ? (-nb) : nb) + '0';
-	n += write(1, &c, 1);
-	return (n);
-}
-
-static size_t	put_nb(long long nb, int *flags)
+static size_t		put_nb(long long nb, int *flags)
 {
 	size_t	i;
 
@@ -66,7 +48,7 @@ static size_t	put_nb(long long nb, int *flags)
 		return (put_long_nbr(nb, flags[2]) + i);
 }
 
-static size_t	get_len(long long nb, int *flags)
+static size_t		get_len(long long nb, int *flags)
 {
 	int	len;
 	int add;
@@ -86,7 +68,7 @@ static size_t	get_len(long long nb, int *flags)
 	return (len + add);
 }
 
-int				conv_int(va_list list, int *flags)
+int					conv_int(va_list list, int *flags)
 {
 	long long	nb;
 	size_t		i;

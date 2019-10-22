@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 15:55:32 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/20 18:29:32 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/22 12:00:32 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static void	set_precast(int *flags, const char *str, size_t size)
 		if (str[i] == 'l' || str[i] == 'h')
 		{
 			end = (str[i] == 'l') ? 'l' : 'h';
-			(str[i] == 'l') ?
-(flags[4] = (flags[4]) % 2 + 1) : (flags[5] = (flags[5]) % 2 + 1);
+			(str[i] == 'l') ? (flags[4] = (flags[4]) % 2 + 1) :
+(flags[5] = (flags[5]) % 2 + 1);
 		}
 		i++;
 	}
@@ -72,7 +72,7 @@ void		get_flags(int *flags, const char *str, size_t size, va_list list)
 	while (i < size)
 	{
 		j = 0;
-		if ((str[i] > '0' && str[i] <= '9') || str[i] == '*')
+		while ((str[i] > '0' && str[i] <= '9') || str[i] == '*')
 			flags[NB_FLAGS] = ft_atoi_cust(str + i, &i, list, flags);
 		while (FLAGS[j])
 		{

@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:21:33 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/21 15:54:27 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/22 14:03:44 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,6 @@
 #include <unistd.h>
 #include <wchar.h>
 #include "libftprintf.h"
-
-static size_t	put_long_nbr(long long nb, int len)
-{
-	size_t	n;
-	char	c;
-
-	n = 0;
-	if (nb > 9 || nb < -9 || len - 1 > 0)
-	{
-		n += put_long_nbr((nb < 0) ? (-(nb / 10)) : (nb / 10), len - 1);
-		c = ((nb < 0) ? (-(nb % 10)) : (nb % 10)) + '0';
-		n += write(1, &c, 1);
-		return (n);
-	}
-	c = ((nb < 0) ? (-nb) : nb) + '0';
-	n += write(1, &c, 1);
-	return (n);
-}
 
 static size_t	put_double(double nb, int len, int *flags)
 {
@@ -49,12 +31,14 @@ static size_t	put_double(double nb, int len, int *flags)
 	if (flags[2] == -1)
 		flags[2] = 6;
 	j = 0;
+	if (nb < 0)
+		nb *= -1;
 	while (j < flags[2])
 	{
 		nb *= 10;
-		c = (int)nb + '0';
+		c = (char)(nb) + '0';
 		i += write(1, &c, 1);
-		nb = nb - (int)nb;
+		nb = nb - (long long)(nb);
 		j++;
 	}
 	return (i);
@@ -74,11 +58,12 @@ static size_t	put_nb(double nb, int *flags)
 	if (!flags[2] && !nb)
 		return (i);
 	if (flags[1])
-		return (put_double(nb, flags[10] - i - ((flags[2] == -1) ? 7 : flags[2]),
-flags) + i);
+	{
+		i =
+put_double(nb, flags[10] - i - ((flags[2] == -1) ? 7 : flags[2]), flags) + i;
+		return (i);
+	}
 	return (put_double(nb, 0, flags) + i);
-	//else
-	//	return (put_double(nb, flags[2], flags) + i);
 }
 
 static size_t	get_len(double nb, int *flags)
@@ -106,6 +91,28 @@ static size_t	get_len(double nb, int *flags)
 	return (len + add);
 }
 
+static double	float_round(double nb, int *flags)
+{
+	double	dec;
+	double	tmp;
+	size_t	i;
+	size_t	len;
+
+	tmp = nb;
+	dec = (nb < 0) ? -1 : 1;
+	len = 0;
+	i = (flags[2] == -1) ? 6 : flags[2];
+	while (len++ < i)
+	{
+		tmp *= 10;
+		dec /= 10;
+	}
+	if ((float)(tmp - (long long)tmp) > 0.5 ||
+(float)(tmp - (long long)tmp) < -0.5)
+		nb += dec;
+	return (nb);
+}
+
 int				conv_float(va_list list, int *flags)
 {
 	double	nb;
@@ -114,17 +121,14 @@ int				conv_float(va_list list, int *flags)
 
 	if (flags[0])
 		flags[1] = 0;
-	nb = va_arg(list, double);
+	nb = float_round(va_arg(list, double), flags);
 	i = 0;
 	len = get_len(nb, flags);
 	if (flags[0])
 		i += put_nb(nb, flags);
-	while (!flags[1] && (int)i < (int)(flags[10] - len))
-	{
+	while (!flags[1] && (int)(i++) < (int)(flags[10] - len))
 		write(1, " ", 1);
-		i++;
-	}
 	if (!flags[0])
 		i += put_nb(nb, flags);
-	return (i);
+	return (i + ((!flags[1]) ? -1 : 0));
 }

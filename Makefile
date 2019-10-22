@@ -6,7 +6,7 @@
 #    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/19 16:00:17 by niduches          #+#    #+#              #
-#    Updated: 2019/10/21 15:18:33 by niduches         ###   ########.fr        #
+#    Updated: 2019/10/22 12:35:36 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC		=	ft_printf.c				\
 			ft_isflag.c				\
 			ft_makeconv.c			\
 			ft_putnstr.c			\
+			ft_put_long_nbr.c		\
 
 OBJ		=	$(SRC:%.c=%.o)
 
