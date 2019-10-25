@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:21:33 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/25 19:44:10 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/25 23:01:25 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,18 +106,7 @@ static double	float_round(double nb, int *flags)
 		tmp *= 10;
 		dec /= 10;
 	}
-	if ((long long)(nb) % 2 == 0)
-	{
-		if ((float)(tmp - (long long)tmp) > 0.5 ||
-				(float)(tmp - (long long)tmp) < -0.5)
-			nb += dec;
-	}
-	else
-	{
-		if ((float)(tmp - (long long)tmp) >= 0.5 ||
-				(float)(tmp - (long long)tmp) <= -0.5)
-			nb += dec;
-	}
+	nb += dec;
 	return (nb);
 }
 
