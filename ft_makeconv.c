@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:52:12 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/22 12:30:17 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/25 19:40:56 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ size_t nb_print)
 	i = 0;
 	while (i <= NB_FLAGS)
 		flags[i++] = 0;
+	flags[6] = -1;
 	flags[2] = -1;
 	get_flags(flags, str + 1, *size - 2, list);
 	i = 0;

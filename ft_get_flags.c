@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 15:55:32 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/22 12:00:32 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/25 19:42:27 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void		get_flags(int *flags, const char *str, size_t size, va_list list)
 		{
 			if (FLAGS[j] == str[i] && str[i] != 'l' && str[i] != 'h')
 			{
-				flags[j]++;
+				(str[i] != '\'') ? flags[j]++ : (flags[j] = 0);
 				(str[i] == '.') ? flags[j] = -2 : 0;
 				if (str[i] == '.')
 					flags[j] = ft_atoi_cust(str + i + 1, &i, list, flags);

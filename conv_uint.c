@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 19:38:02 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/22 12:51:23 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/25 19:54:20 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static unsigned long long	get_nb(va_list list, int *flags)
 	return (va_arg(list, unsigned int));
 }
 
-static size_t				put_ulong_nbr(unsigned long long nb, int len)
+static size_t				put_ulong_nbr(unsigned long long nb, int len,
+int nb_c)
 {
 	size_t	n;
 	char	c;
@@ -36,13 +37,17 @@ static size_t				put_ulong_nbr(unsigned long long nb, int len)
 	n = 0;
 	if (nb > 9 || len - 1 > 0)
 	{
-		n += put_ulong_nbr(nb / 10, len - 1);
+		n += put_ulong_nbr(nb / 10, len - 1, (nb_c >= 0) ? nb_c + 1 : -1);
 		c = (nb % 10) + '0';
 		n += write(1, &c, 1);
+		if (nb > 0 && nb_c > 1 && (nb_c) % 3 == 0)
+            n += write(1, ",", 1);
 		return (n);
 	}
 	c = nb + '0';
 	n += write(1, &c, 1);
+	if (nb > 0 && nb_c > 1 && (nb_c) % 3 == 0)
+            n += write(1, ",", 1);
 	return (n);
 }
 
@@ -52,9 +57,9 @@ static size_t				put_nb(unsigned long long nb, int *flags)
 
 	i = 0;
 	if (flags[1])
-		return (put_ulong_nbr(nb, flags[10] - i) + i);
+		return (put_ulong_nbr(nb, flags[10] - i, flags[6]) + i);
 	else
-		return (put_ulong_nbr(nb, flags[2]) + i);
+		return (put_ulong_nbr(nb, flags[2], flags[6]) + i);
 }
 
 static size_t				get_len(unsigned long long nb, int *flags)

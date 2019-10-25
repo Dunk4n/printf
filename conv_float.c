@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:21:33 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/22 14:03:44 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/25 19:44:10 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <wchar.h>
+#include <float.h>
 #include "libftprintf.h"
 
 static size_t	put_double(double nb, int len, int *flags)
@@ -22,8 +23,8 @@ static size_t	put_double(double nb, int len, int *flags)
 	int		j;
 	char	c;
 
-	i = put_long_nbr((long long)nb, len);
-	if (flags[2])
+	i = put_long_nbr((long long)nb, (!len) ? len : 1, flags[6]);
+	if (flags[2] || flags[7])
 		i += write(1, ".", 1);
 	else
 		return (i);
@@ -55,8 +56,6 @@ static size_t	put_nb(double nb, int *flags)
 		i += write(1, "+", 1);
 	if (nb >= 0 && flags[8] && !flags[9])
 		i += write(1, " ", 1);
-	if (!flags[2] && !nb)
-		return (i);
 	if (flags[1])
 	{
 		i =
@@ -99,7 +98,7 @@ static double	float_round(double nb, int *flags)
 	size_t	len;
 
 	tmp = nb;
-	dec = (nb < 0) ? -1 : 1;
+	dec = (nb < 0) ? -0.5 : 0.5;
 	len = 0;
 	i = (flags[2] == -1) ? 6 : flags[2];
 	while (len++ < i)
@@ -107,9 +106,18 @@ static double	float_round(double nb, int *flags)
 		tmp *= 10;
 		dec /= 10;
 	}
-	if ((float)(tmp - (long long)tmp) > 0.5 ||
-(float)(tmp - (long long)tmp) < -0.5)
-		nb += dec;
+	if ((long long)(nb) % 2 == 0)
+	{
+		if ((float)(tmp - (long long)tmp) > 0.5 ||
+				(float)(tmp - (long long)tmp) < -0.5)
+			nb += dec;
+	}
+	else
+	{
+		if ((float)(tmp - (long long)tmp) >= 0.5 ||
+				(float)(tmp - (long long)tmp) <= -0.5)
+			nb += dec;
+	}
 	return (nb);
 }
 

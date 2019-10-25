@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:21:33 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/22 12:59:43 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/25 19:44:31 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static size_t		put_nb(long long nb, int *flags)
 	if (!flags[2] && !nb)
 		return (i);
 	if (flags[1])
-		return (put_long_nbr(nb, flags[10] - i) + i);
+		return (put_long_nbr(nb, flags[10] - i, flags[6]) + i);
 	else
-		return (put_long_nbr(nb, flags[2]) + i);
+		return (put_long_nbr(nb, flags[2], flags[6]) + i);
 }
 
 static size_t		get_len(long long nb, int *flags)
