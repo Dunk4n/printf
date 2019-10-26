@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:52:12 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/25 19:40:56 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/26 12:24:56 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int		conv_percent(va_list list, int *flags)
 
 int				(*g_f[13])(va_list, int*) = {conv_char, conv_str, conv_ptr,
 	conv_int, conv_int, conv_uint, conv_hex, conv_uhex, conv_percent,
-	conv_nb_print_char, conv_float, conv_float, conv_float};
+	conv_nb_print_char, conv_float, conv_float, conv_sct};
 
 int				ft_makeconv(const char *str, int *size, va_list list,
 size_t nb_print)

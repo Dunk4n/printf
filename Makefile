@@ -6,7 +6,7 @@
 #    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/19 16:00:17 by niduches          #+#    #+#              #
-#    Updated: 2019/10/25 22:37:36 by niduches         ###   ########.fr        #
+#    Updated: 2019/10/26 12:23:09 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC_PATH	=	ft_printf.c				\
 				conv_uint.c				\
 				conv_nb_print_char.c	\
 				conv_float.c			\
+				conv_sct.c				\
 				ft_get_flags.c			\
 				ft_isconv.c				\
 				ft_isflag.c				\

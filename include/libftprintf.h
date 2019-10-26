@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 16:12:52 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/25 19:43:55 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/26 12:23:57 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int				conv_hex(va_list list, int *flags);
 int				conv_uhex(va_list list, int *flags);
 int				conv_nb_print_char(va_list list, int *flags);
 int				conv_float(va_list list, int *flags);
+int				conv_sct(va_list list, int *flags);
 size_t			put_long_nbr(long long nb, int len, int nb_c);
 
 #endif

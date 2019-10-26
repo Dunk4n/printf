@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   conv_float.c                                       :+:      :+:    :+:   */
+/*   conv_sct.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/26 12:04:30 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/26 14:18:37 by niduches         ###   ########.fr       */
+/*   Created: 2019/10/26 12:04:16 by niduches          #+#    #+#             */
+/*   Updated: 2019/10/26 14:18:33 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static size_t	put_double(double nb, int len, int *flags)
 	int		j;
 	char	c;
 
-	i = put_long_nbr((long long)nb, (!len) ? 1 : len, flags[6]);
+	i = put_long_nbr((long long)nb, (len < 0) ? 1 : len, flags[6]);
 	if (flags[2] || flags[7])
 		i += write(1, ".", 1);
 	else
@@ -44,7 +44,7 @@ static size_t	put_double(double nb, int len, int *flags)
 	return (i);
 }
 
-static size_t	put_nb(double nb, int *flags)
+static size_t	put_nb_sct(double nb, int *flags, int exp, int len)
 {
 	size_t	i;
 
@@ -57,14 +57,22 @@ static size_t	put_nb(double nb, int *flags)
 		i += write(1, " ", 1);
 	if (flags[1])
 	{
-		i +=
-put_double(nb, flags[10] - i - ((flags[2] == -1) ? 7 : (flags[2] + 1)), flags);
+		i += put_double(nb, flags[10] - len + 1, flags);
+		i += write(1, (exp < 0) ? "e-" : "e+", 2);
+		if (exp < 0)
+			exp *= -1;
+		i += put_long_nbr(exp, 2, -1);
 		return (i);
 	}
-	return (put_double(nb, 0, flags) + i);
+	i += put_double(nb, 0, flags);
+	i += write(1, (exp < 0) ? "e-" : "e+", 2);
+	if (exp < 0)
+		exp *= -1;
+	i += put_long_nbr(exp, 2, -1);
+	return (i);
 }
 
-static size_t	get_len(double nb, int *flags)
+static size_t	get_len_sct(double nb, int *flags, int exp)
 {
 	int	len;
 	int add;
@@ -72,7 +80,11 @@ static size_t	get_len(double nb, int *flags)
 	if (flags[0])
 		return (0);
 	len = 1;
-	add = 0;
+	add = 2;
+	while (exp /= 10)
+		add++;
+	if (add < 4)
+		add = 4;
 	if (nb < 0 || flags[8] || flags[9])
 		add++;
 	if (!flags[2] && !nb)
@@ -89,37 +101,49 @@ static size_t	get_len(double nb, int *flags)
 	return (len + add);
 }
 
-static double	float_round(double nb, int *flags)
+static double	sct_round(double nb, int *flags, int *exp)
 {
 	double	dec;
 	size_t	i;
 	size_t	len;
 
+	while (nb != 0 && ((long long)nb >= 10 || (long long)nb <= -10))
+	{
+		(*exp)++;
+		nb /= 10;
+	}
+	while (nb != 0 && (long long)nb < 1 && (long long)nb > -1)
+	{
+		(*exp)--;
+		nb *= 10;
+	}
 	dec = (nb < 0) ? -0.5 : 0.5;
-	len = 0;
 	i = (flags[2] == -1) ? 6 : flags[2];
+	len = 0;
 	while (len++ < i)
 		dec /= 10;
 	nb += dec;
 	return (nb);
 }
 
-int				conv_float(va_list list, int *flags)
+int				conv_sct(va_list list, int *flags)
 {
 	double	nb;
 	size_t	i;
 	size_t	len;
+	int		exp;
 
+	exp = 0;
 	if (flags[0])
 		flags[1] = 0;
-	nb = float_round(va_arg(list, double), flags);
+	nb = sct_round(va_arg(list, double), flags, &exp);
 	i = 0;
-	len = get_len(nb, flags);
+	len = get_len_sct(nb, flags, exp * 10);
 	if (flags[0])
-		i += put_nb(nb, flags);
+		i += put_nb_sct(nb, flags, exp, len);
 	while (!flags[1] && (int)(i++) < (int)(flags[10] - len))
 		write(1, " ", 1);
 	if (!flags[0])
-		i += put_nb(nb, flags);
+		i += put_nb_sct(nb, flags, exp, len);
 	return (i + ((!flags[1]) ? -1 : 0));
 }
