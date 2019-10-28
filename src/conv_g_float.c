@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 23:32:41 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/28 01:19:32 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/28 14:42:36 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,11 @@ static int	make_g_decimal(double nb, int *flags, size_t len)
 			tmp = i;
 		tmp_d = tmp_d - (int)tmp_d;
 	}
-	flags[2] = tmp;
-	return (conv_float_print(nb, flags));
+	if (!flags[7])
+		flags[2] = tmp;
+	else
+		flags[2] -= len;
+	return (conv_float_print(nb, flags, 0));
 }
 
 int			make_g(double nb, int *flags)
@@ -52,7 +55,7 @@ int			make_g(double nb, int *flags)
 	if ((int)len >= flags[2] || (nb - (long long)nb) == 0)
 	{
 		flags[2] = 0;
-		return (conv_float_print(nb, flags));
+		return (conv_float_print(nb, flags, 0));
 	}
 	return (make_g_decimal(nb, flags, len));
 }

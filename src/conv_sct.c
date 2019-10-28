@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 12:04:16 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/28 00:53:20 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/28 13:12:34 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static size_t	get_len_sct(double nb, int *flags, int exp)
 	return (len + add);
 }
 
-static double	sct_round(double nb, int *flags, int *exp)
+static double	sct_round(double nb, int *flags, int *exp, int round)
 {
 	double	dec;
 	size_t	i;
@@ -117,6 +117,8 @@ static double	sct_round(double nb, int *flags, int *exp)
 		(*exp)--;
 		nb *= 10;
 	}
+	if (!round)
+		return (nb);
 	dec = (nb < 0) ? -0.5 : 0.5;
 	i = (flags[2] == -1) ? 6 : flags[2];
 	len = 0;
@@ -126,7 +128,7 @@ static double	sct_round(double nb, int *flags, int *exp)
 	return (nb);
 }
 
-int				conv_sct_print(double nb, int *flags)
+int				conv_sct_print(double nb, int *flags, int round)
 {
 	size_t	i;
 	size_t	len;
@@ -135,7 +137,7 @@ int				conv_sct_print(double nb, int *flags)
 	exp = 0;
 	if (flags[0])
 		flags[1] = 0;
-	nb = sct_round(nb, flags, &exp);
+	nb = sct_round(nb, flags, &exp, round);
 	i = 0;
 	len = get_len_sct(nb, flags, exp * 10);
 	if (flags[0])

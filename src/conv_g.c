@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 18:13:07 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/28 01:19:00 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/28 14:31:49 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int		if_sct_down(double nb)
 		return (0);
 	tmp = nb - (long long)nb;
 	len = -1;
-	i= 0;
+	i = 0;
 	while (i < 6)
 	{
 		tmp *= 10;
@@ -78,7 +78,7 @@ static int		make_sct_g_up(double nb, int *flags)
 		tmp = tmp - ((int)tmp);
 	}
 	flags[2] = len;
-	return (conv_sct_print(nb, flags));
+	return (conv_sct_print(nb, flags, 1));
 }
 
 static int		make_sct_g_down(double nb, int *flags)
@@ -102,7 +102,7 @@ static int		make_sct_g_down(double nb, int *flags)
 		tmp = tmp - ((int)tmp);
 	}
 	flags[2] = len;
-	return (conv_sct_print(nb, flags));
+	return (conv_sct_print(nb, flags, 1));
 }
 
 int				conv_g(va_list list, int *flags)
@@ -118,5 +118,5 @@ int				conv_g(va_list list, int *flags)
 		return (make_sct_g_up(nb, flags));
 	if (if_sct_down(nb))
 		return (make_sct_g_down(nb, flags));
-	return (make_g(nb, flags));
+	return (make_g(float_round(nb, flags, 1), flags));
 }

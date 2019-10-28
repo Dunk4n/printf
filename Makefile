@@ -6,7 +6,7 @@
 #    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/19 16:00:17 by niduches          #+#    #+#              #
-#    Updated: 2019/10/28 01:20:44 by niduches         ###   ########.fr        #
+#    Updated: 2019/10/28 14:42:22 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC_PATH	=	ft_printf.c				\
 				ft_putnstr.c			\
 				ft_put_long_nbr.c		\
 				conv_g_float.c			\
+				float_round.c			\
 
 SRC = $(addprefix src/,$(SRC_PATH))
 
