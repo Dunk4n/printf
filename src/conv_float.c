@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 12:04:30 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/26 14:18:37 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/28 00:04:34 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +104,14 @@ static double	float_round(double nb, int *flags)
 	return (nb);
 }
 
-int				conv_float(va_list list, int *flags)
+int				conv_float_print(double nb, int *flags)
 {
-	double	nb;
 	size_t	i;
 	size_t	len;
 
 	if (flags[0])
 		flags[1] = 0;
-	nb = float_round(va_arg(list, double), flags);
+	nb = float_round(nb, flags);
 	i = 0;
 	len = get_len(nb, flags);
 	if (flags[0])

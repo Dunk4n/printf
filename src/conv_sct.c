@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 12:04:16 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/26 14:18:33 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/28 00:53:20 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,8 @@ static double	sct_round(double nb, int *flags, int *exp)
 	return (nb);
 }
 
-int				conv_sct(va_list list, int *flags)
+int				conv_sct_print(double nb, int *flags)
 {
-	double	nb;
 	size_t	i;
 	size_t	len;
 	int		exp;
@@ -136,7 +135,7 @@ int				conv_sct(va_list list, int *flags)
 	exp = 0;
 	if (flags[0])
 		flags[1] = 0;
-	nb = sct_round(va_arg(list, double), flags, &exp);
+	nb = sct_round(nb, flags, &exp);
 	i = 0;
 	len = get_len_sct(nb, flags, exp * 10);
 	if (flags[0])

@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 16:12:52 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/26 12:23:57 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/28 00:52:11 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ int				conv_uint(va_list list, int *flags);
 int				conv_hex(va_list list, int *flags);
 int				conv_uhex(va_list list, int *flags);
 int				conv_nb_print_char(va_list list, int *flags);
-int				conv_float(va_list list, int *flags);
-int				conv_sct(va_list list, int *flags);
+int				conv_float_print(double nb, int *flags);
+int				conv_sct_print(double nb, int *flags);
+int				conv_g(va_list list, int *flags);
+int				make_g(double nb, int *flags);
 size_t			put_long_nbr(long long nb, int len, int nb_c);
 
 #endif
