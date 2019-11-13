@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC 		= 	gcc
+CC		=	gcc
 
 SRC_PATH	=	ft_printf.c				\
 				conv_char.c				\
@@ -34,9 +34,7 @@ SRC = $(addprefix src/,$(SRC_PATH))
 
 OBJ		=	$(SRC:%.c=%.o)
 
-#==============================================================================
-CFLAGS	+= -I./include#	-Wall -Wextra -Werror
-#==============================================================================
+CFLAGS	+= -Wall -Wextra -Werror -I./include
 
 NAME	=	libftprintf.a
 

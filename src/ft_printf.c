@@ -56,5 +56,5 @@ int				ft_printf(const char *str, ...)
 		i += to_print;
 	}
 	va_end(list);
-	return ((to_print != -1) ? nb_print : -1);
+	return ((to_print != -1) ? (int)nb_print : -1);
 }
