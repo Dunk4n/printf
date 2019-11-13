@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:52:12 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/26 12:24:56 by niduches         ###   ########.fr       */
+/*   Updated: 2019/10/28 13:06:15 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,19 @@ static int		conv_percent(va_list list, int *flags)
 	return (i + 1);
 }
 
+static int		conv_float(va_list list, int *flags)
+{
+	return (conv_float_print(va_arg(list, double), flags, 1));
+}
+
+static int		conv_sct(va_list list, int *flags)
+{
+	return (conv_sct_print(va_arg(list, double), flags, 1));
+}
+
 int				(*g_f[13])(va_list, int*) = {conv_char, conv_str, conv_ptr,
 	conv_int, conv_int, conv_uint, conv_hex, conv_uhex, conv_percent,
-	conv_nb_print_char, conv_float, conv_float, conv_sct};
+	conv_nb_print_char, conv_float, conv_g, conv_sct};
 
 int				ft_makeconv(const char *str, int *size, va_list list,
 size_t nb_print)
