@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 12:29:40 by niduches          #+#    #+#             */
-/*   Updated: 2019/10/21 13:19:05 by niduches         ###   ########.fr       */
+/*   Updated: 2020/06/24 00:55:37 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ static size_t	pass_flags(const char *str, char *flag)
 	return (i + 1);
 }
 
+static void		init_printf(size_t *nb_print, int *to_print, int *i)
+{
+	*nb_print = 0;
+	*to_print = 0;
+	*i = 0;
+}
+
 int				ft_printf(const char *str, ...)
 {
 	va_list	list;
@@ -40,8 +47,7 @@ int				ft_printf(const char *str, ...)
 
 	if (!str)
 		return (0);
-	i = 0;
-	nb_print = 0;
+	init_printf(&nb_print, &to_print, &i);
 	va_start(list, str);
 	while (str[i] && to_print != -1)
 	{
